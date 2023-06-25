@@ -37,9 +37,16 @@ var options = function(){
 			save: function(){
 				options_data.cards = this.num;
 				options_data.dificulty = this.dificulty;
-				save();
+				save();			
+
+			},
+			back: function(){
 				loadpage("../");
+			},
+			play: function(){
+				loadpage("../html/game.html")
 			}
+			
 		}
 	});
 	return {
