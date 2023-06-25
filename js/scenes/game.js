@@ -23,48 +23,53 @@ class GameScene extends Phaser.Scene {
 	}
 	
     create (){	
-		
-		
-		var dades = localStorage.getItem("config") ;
+				
+		var dades = localStorage.getItem("config") || '{"cards":2,"dificulty":"hard"}';
+		this.options = JSON.parse(dades);
 		
 		this.ncartes = this.options.cards;
-		this.options = JSON.parse(dades);
 		
 
 
 		switch(this.options.dificulty){
 			case "easy":
-				this.temps = 3000;
+				this.temps = 2000;
 				this.badclick = 5;
 				break;
 			case "normal":
-				this.temps = 2000;
+				this.temps = 1000;
 				this.badclick = 10;
 				break;
 			case "hard":
 				this.temps = 200;
 				this.badclick = 30;
 				break;
+			default:
+				break;
 		}
 
 		let arraycard = ['co', 'sb', 'co', 'sb'];
 		let arraycards = [];
 		
-		this.cameras.main.setBackgroundColor(0xBFFCFF);
-
-		for (let i = arraycard.length - 1; i > 0; i--) {
-			const j = Math.floor(Math.random() * (i + 1));
+		
+		for (let i = arraycard.length-1; i > 0; i--) 
+		{
+			const j = Math.floor(Math.random() *  (i + 1));
 			[arraycard[i], arraycard[j]] = [arraycard[j], arraycard[i]];
 		}
-		for (let i = 0; i < this.ncartes; i++) {
+		for (let i = 0; i < this.ncartes; i++) 
+		{
 			arraycards.push(arraycard [i]);
 			arraycards.push(arraycard [i]);				
 		}
-		for (let i = arraycards.length - 1; i > 0; i--) {
-			const j = Math.floor(Math.random() * (i + 1));
+		for (let i = arraycards.length-1; i > 0; i--) {
+			const j = Math.floor(Math.random() *  (i + 1));
 			[arraycards[i], arraycards[j]] = [arraycards[j], arraycards[i]];
 		}
-		
+
+		console.log("dif -> "+this.options.dificulty);
+		console.log("nC -> "+this.ncartes);
+		this.cameras.main.setBackgroundColor("rgb(0, 0, 0, 0)");
 		this.place -= 100 * (this.ncartes-2)
 
 		for (let i = 0; i < this.ncartes*2; i++) 
@@ -94,7 +99,7 @@ class GameScene extends Phaser.Scene {
 					card.disableBody(true,true);
 					if (this.firstClick){
 						if (this.firstClick.card_id !== card.card_id){
-
+							console.log("Timeout de "+this.temps);
 							setTimeout(() =>{
 								
 								this.score -= this.badclick;
@@ -110,11 +115,11 @@ class GameScene extends Phaser.Scene {
 						else{
 							this.correct++;
 							if (this.correct >= this.ncartes){
-								alert("You Win with " + this.score + " points.");
+								alert("You Wen with " + this.score + " points.");
 								loadpage("../");
-							}
+							}this.firstClick = null;
 						}
-						this.firstClick = null;
+						
 					}
 					else{
 						this.firstClick = card;

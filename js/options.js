@@ -44,7 +44,10 @@ var options = function(){
 				loadpage("../");
 			},
 			play: function(){
-				loadpage("../html/game.html")
+				loadpage("../html/phasergame.html")
+				options_data.cards = this.num;
+				options_data.dificulty = this.dificulty;
+				save();		
 			}
 			
 		}

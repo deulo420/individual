@@ -1,6 +1,6 @@
 var config = {
     type: Phaser.AUTO,
-    width: 800,
+    width: window.innerWidth -10,
     height: 600,
     parent: 'game_area',
 	physics: {
@@ -10,6 +10,7 @@ var config = {
 			debug: false
 		}
 	},
+	transparent: true,
     scene: [ GameScene ]
 };
 
