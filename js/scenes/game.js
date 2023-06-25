@@ -24,13 +24,11 @@ class GameScene extends Phaser.Scene {
 	
     create (){	
 				
-		var dades = localStorage.getItem("config") || '{"cards":2,"dificulty":"hard"}';
+		var dades = localStorage.getItem("config") || '{"cards":2,"dificulty":"normal"}';
 		this.options = JSON.parse(dades);
 		
 		this.ncartes = this.options.cards;
 		
-
-
 		switch(this.options.dificulty){
 			case "easy":
 				this.temps = 2000;
@@ -43,7 +41,7 @@ class GameScene extends Phaser.Scene {
 			case "hard":
 				this.temps = 200;
 				this.badclick = 30;
-				break;
+				break;	
 			default:
 				break;
 		}
@@ -115,7 +113,7 @@ class GameScene extends Phaser.Scene {
 						else{
 							this.correct++;
 							if (this.correct >= this.ncartes){
-								alert("You Wen with " + this.score + " points.");
+								alert("You Win with " + this.score + " points.");
 								loadpage("../");
 							}this.firstClick = null;
 						}
